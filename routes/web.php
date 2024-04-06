@@ -14,13 +14,25 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('admin/dashboard', function () {
-return view('admin.dashboard');
-});
+// Route::get('admin/dashboard', function () {
+// return view('admin.dashboard');
+// });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware('auth')->group(function()
+{
+    Route::get('/', function() {
+        return view('admin.dashboard');
+    });
+
+    Route::prefix('categories')->group(function()
+    {
+        Route::get('/', 'CategoryController@index');
+    });
+});
