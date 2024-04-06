@@ -42,7 +42,8 @@
                                         <img src="./assets/img/avatars/avatr-6.svg" alt="Charles Hall"
                                             class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
-                                    <form>
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
                                             <input
@@ -67,9 +68,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- <small>
-                                                <a href="index.html">Forgot password?</a>
-                                            </small> --}}
+
                                         </div>
                                         <div>
 
@@ -85,7 +84,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center mt-3">
-                                            <a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+                                            <button class="btn btn-lg btn-primary">Sign in</button>
                                         </div>
                                     </form>
                                 </div>
