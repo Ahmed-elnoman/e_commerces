@@ -1,271 +1,299 @@
 @extends('admin.index')
 @section('context')
-    <div class="container-fluid p-0">
-
-        <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
-
+    <div class="container-fluid p-0" data-ng-app="myApp" data-ng-controller="myCtrl">
         <div class="row">
-            <div class="col-xl-6 col-xxl-5 d-flex">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Sales</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="truck"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3">2.382</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Visitors</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="users"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3">14.212</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-12 col-sm-4 col-lg-3">
+                <div class="card card-box">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="roleFilter">Role</label>
+                            <select class="js-example-basic-single form-control" name="state">
+                                <option data-ng-repeat="role in roles" data-ng-value="role.ugroup_id"
+                                    data-ng-bind="role.ugroup_name"></option>
+                            </select>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Earnings</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3">$21.300</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Orders</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="shopping-cart"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3">64</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
-                            </div>
+                        {{-- It will be worked on soon --}}
+                        <div class="mb-3">
+                            <label for="roleFilter">Status</label>
+                            <select id="filter-status" class="form-select">
+                                <option value="">-----</option>
+                                <option value="1">Active</option>
+                                <option value="0">Blocd</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-xl-6 col-xxl-7">
-                <div class="card flex-fill w-100">
-                    <div class="card-header">
-
-                        <h5 class="card-title mb-0">Recent Movement</h5>
-                    </div>
-                    <div class="card-body py-3">
-                        <div class="chart chart-sm">
-                            <canvas id="chartjs-dashboard-line"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
-                <div class="card flex-fill w-100">
-                    <div class="card-header">
-
-                        <h5 class="card-title mb-0">Browser Usage</h5>
-                    </div>
-                    <div class="card-body d-flex">
-                        <div class="align-self-center w-100">
-                            <div class="py-3">
-                                <div class="chart chart-xs">
-                                    <canvas id="chartjs-dashboard-pie"></canvas>
-                                </div>
+            <div class="col-12 col-sm-8 col-lg-9">
+                <div class="card card-box">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h5 class="card-title fw-semibold pt-1 me-auto mb-3">
+                                <span class="loading-spinner spinner-border spinner-border-sm text-warning me-2"
+                                    role="status"></span><span>Categories</span>
+                            </h5>
+                            <div>
+                                <button type="button" class="btn btn-outline-primary btn-circle bi bi-plus-lg"
+                                    data-ng-click="setUser(false)"></button>
+                                <button type="button" class="btn btn-outline-dark btn-circle bi bi-arrow-repeat"
+                                    data-ng-click="dataLoader(true)"></button>
                             </div>
 
-                            <table class="table mb-0">
+                        </div>
+
+                        <div data-ng-if="users.length" class="table-responsive">
+                            <table class="table table-hover" id="user_table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td class="text-end">4306</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Firefox</td>
-                                        <td class="text-end">3801</td>
-                                    </tr>
-                                    <tr>
-                                        <td>IE</td>
-                                        <td class="text-end">1689</td>
+                                    <tr data-ng-repeat="u in users track by $index">
+                                        <td data-ng-bind="u.id"></td>
+                                        <td data-ng-bind="u.user_name"></td>
+                                        <td data-ng-bind="u.user_email"></td>
+                                        <td data-ng-bind="u.user_mobile"></td>
+                                        <td data-ng-bind="u.ugroup_name"></td>
+                                        <td>
+                                            <span
+                                                class="badge bg-<%statusObject.color[u.user_active]%> rounded-pill font-monospace"><%statusObject.name[u.user_active]%></span>
+
+                                        </td>
+                                        <td class="col-fit">
+                                            <div>
+                                                <button class="btn btn-outline-success btn-circle bi bi-person-lock"
+                                                    data-ng-click="editActive($index)"></button>
+                                                <button class="btn btn-outline-primary btn-circle bi bi-pencil-square"
+                                                    data-ng-click="setUser($index)"></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+
+                        <div data-ng-if="!users.length" class="text-center text-secondary py-5">
+                            <i class="bi bi-exclamation-circle  display-4"></i>
+                            <h5>No records</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-                <div class="card flex-fill w-100">
-                    <div class="card-header">
+        </div>
 
-                        <h5 class="card-title mb-0">Real-Time</h5>
-                    </div>
-                    <div class="card-body px-4">
-                        <div id="world_map" style="height:350px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
-                <div class="card flex-fill">
-                    <div class="card-header">
 
-                        <h5 class="card-title mb-0">Calendar</h5>
-                    </div>
-                    <div class="card-body d-flex">
-                        <div class="align-self-center w-100">
-                            <div class="chart">
-                                <div id="datetimepicker-dashboard"></div>
+
+        <div class="modal fade" id="categoryModel" tabindex="-1" aria-labelledby="categoryModelLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <form action="/categories/submit" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <label id="cate_name">Category Name</label>
+                                <input type="text" name="category_name" id="cate_name" class="form-control">
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <label id="cate_file">Category Image</label>
+                                <input type="file" name="category_file" id="cate_file" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label id="cate_description">Category Description</label>
+                                <textarea name="category_description" class="form-control" id="cate_description" cols="30" rows="7"></textarea>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label id="cate_mate_name">Category Meta Name</label>
+                                        <input type="text" name="category_meta_name" id="cate_mate_name"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label id="cate_meta_keyword">Category Meta Keyword</label>
+                                        <input type="text" name="category_meta_ketword" id="cate_meta_keyword"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label id="cate_meta_description">Category Meta Description</label>
+                                        <textarea name="category_meta_description" class="form-control" id="cate_meta_description" cols="30"
+                                            rows="7"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <button type="button" class="btn btn-outline-secondary me-auto "
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-outline-success">Submit</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
-                <div class="card flex-fill">
-                    <div class="card-header">
-
-                        <h5 class="card-title mb-0">Latest Projects</h5>
-                    </div>
-                    <table class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th class="d-none d-xl-table-cell">Start Date</th>
-                                <th class="d-none d-xl-table-cell">End Date</th>
-                                <th>Status</th>
-                                <th class="d-none d-md-table-cell">Assignee</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Project Apollo</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                            </tr>
-                            <tr>
-                                <td>Project Fireball</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-danger">Cancelled</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
-                            </tr>
-                            <tr>
-                                <td>Project Hades</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                            </tr>
-                            <tr>
-                                <td>Project Nitro</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-warning">In progress</span></td>
-                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                            </tr>
-                            <tr>
-                                <td>Project Phoenix</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
-                            </tr>
-                            <tr>
-                                <td>Project X</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                            </tr>
-                            <tr>
-                                <td>Project Romeo</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Christina Mason</td>
-                            </tr>
-                            <tr>
-                                <td>Project Wombat</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-warning">In progress</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4 col-xxl-3 d-flex">
-                <div class="card flex-fill w-100">
-                    <div class="card-header">
-
-                        <h5 class="card-title mb-0">Monthly Sales</h5>
-                    </div>
-                    <div class="card-body d-flex w-100">
-                        <div class="align-self-center chart chart-lg">
-                            <canvas id="chartjs-dashboard-bar"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
+@endsection
+@section('js')
+    <script>
+        var scope, app = angular.module('myApp', [], function($interpolateProvider) {
+            $interpolateProvider.startSymbol('<%');
+            $interpolateProvider.endSymbol('%>');
+        });
+        app.controller('myCtrl', function($scope) {
+            $('.loading-spinner').hide();
+            $scope.updateUser = false;
+            $scope.userId = 0;
+            $scope.users = [];
+            $scope.roles = [];
+            $scope.page = 1;
+            $scope.q = ' ';
+            $scope.dataLoader = function(reload = false) {
+                $('.loading-spinner').show();
+                if (reload) {
+                    $scope.page = 1;
+                }
+                $.post("/categories/load/", {
+                    status: $('#filter-status').val(),
+                    q: $scope.q,
+                    page: $scope.page,
+                    limit: 24,
+                    _token: '{{ csrf_token() }}'
+                }, function(data) {
+                    $('.loading-spinner').hide();
+                    $scope.$apply(() => {
+                        $scope.users = data;
+                        $scope.page++;
+                    });
+                }, 'json');
+            }
+            $scope.setUser = (indx) => {
+                $scope.updateUser = indx;
+                $('#categoryModel').modal('show');
+            };
+            $scope.editActive = (index) => {
+                $scope.userId = index;
+                $('#edit_active').modal('show');
+            };
+            $scope.deleletUser = (index) => {
+                $scope.userId = index;
+                $('#delete_user').modal('show');
+            };
+            $scope.dataLoader();
+            scope = $scope;
+        });
+
+        $(function() {
+            $('#categoryModel form').on('submit', function(e) {
+                e.preventDefault();
+                controls.log(11)
+                var form = $(this),
+                    formData = new FormData(this),
+                    action = form.attr('action'),
+                    method = form.attr('method'),
+                    controls = form.find('button, input'),
+                    spinner = $('#locationModal .loading-spinner');
+                spinner.show();
+                controls.prop('disabled', true);
+                $.ajax({
+                    url: action,
+                    type: method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                }).done(function(data, textStatus, jqXHR) {
+                    var response = JSON.parse(data);
+                    if (response.status) {
+                        toastr.success('Data processed successfully');
+                        $('#useForm').modal('hide');
+                        scope.$apply(() => {
+                            if (scope.updateUser === false) {
+                                scope.users.unshift(response.data);
+                                scope.dataLoader(true);
+                            } else {
+                                scope.users[scope.updateUser] = response.data;
+                                scope.dataLoader(true);
+                            }
+                        });
+                    } else toastr.error(response.message);
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    toastr.error("error");
+                    controls.log(jqXHR.responseJSON.message);
+                    $('#useForm').modal('hide');
+                }).always(function() {
+                    spinner.hide();
+                    controls.prop('disabled', false);
+                });
+
+            })
+        });
+
+        $(function() {
+            $('#edit_active form').on('submit', function(e) {
+                e.preventDefault();
+                var form = $(this),
+                    formData = new FormData(this),
+                    action = form.attr('action'),
+                    method = form.attr('method'),
+                    controls = form.find('button, input'),
+                    spinner = $('#locationModal .loading-spinner');
+                spinner.show();
+                controls.prop('disabled', true);
+                $.ajax({
+                    url: action,
+                    type: method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                }).done(function(data, textStatus, jqXHR) {
+                    var response = JSON.parse(data);
+                    if (response.status) {
+                        toastr.success('Data processed successfully');
+                        $('#edit_active').modal('hide');
+                        scope.$apply(() => {
+                            if (scope.updateUser === false) {
+                                scope.users.unshift(response.data);
+                                scope.dataLoader(true);
+                            } else {
+                                scope.users[scope.updateUser] = response.data;
+                                scope.dataLoader(true);
+                            }
+                        });
+                    } else toastr.error(response.message);
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    toastr.error(response.message);
+                    controls.log(jqXHR.responseJSON.message);
+                    $('#useForm').modal('hide');
+                }).always(function() {
+                    spinner.hide();
+                    controls.prop('disabled', false);
+                });
+
+            })
+        })
+        $(function() {
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                scope.$apply(() => scope.q = $(this).find('input').val());
+                scope.dataLoader(true);
+            });
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 @endsection

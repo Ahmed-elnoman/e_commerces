@@ -20,4 +20,8 @@ class Category extends Model
         'category_mate_keyword',
         'category_status'
     ];
+
+    public static function getCategories() {
+        return self::orderBy('create_at', 'DESC');
+    }
 }
