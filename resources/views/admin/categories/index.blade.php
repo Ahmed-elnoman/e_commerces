@@ -2,29 +2,8 @@
 @section('context')
     <div class="container-fluid p-0" data-ng-app="myApp" data-ng-controller="myCtrl">
         <div class="row">
-            <div class="col-12 col-sm-4 col-lg-3">
-                <div class="card card-box">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="roleFilter">Role</label>
-                            <select class="js-example-basic-single form-control" name="state">
-                                <option data-ng-repeat="role in roles" data-ng-value="role.ugroup_id"
-                                    data-ng-bind="role.ugroup_name"></option>
-                            </select>
-                        </div>
-                        {{-- It will be worked on soon --}}
-                        <div class="mb-3">
-                            <label for="roleFilter">Status</label>
-                            <select id="filter-status" class="form-select">
-                                <option value="">-----</option>
-                                <option value="1">Active</option>
-                                <option value="0">Blocd</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-8 col-lg-9">
+
+            <div class="col-12 col-sm-8 col-lg-12">
                 <div class="card card-box">
                     <div class="card-body">
                         <div class="d-flex">
@@ -41,29 +20,32 @@
 
                         </div>
 
-                        <div data-ng-if="users.length" class="table-responsive">
+                        <div data-ng-if="categories.length" class="table-responsive">
                             <table class="table table-hover" id="user_table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
+                                        <th class="text-center">Category Name</th>
+                                        <th class="text-center">Category Meta Name</th>
+                                        <th class="text-center">Category Descripton</th>
+                                        <th class="text-center">Category Image</th>
+                                        <th class="text-center">Category Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-repeat="u in users track by $index">
-                                        <td data-ng-bind="u.id"></td>
-                                        <td data-ng-bind="u.user_name"></td>
-                                        <td data-ng-bind="u.user_email"></td>
-                                        <td data-ng-bind="u.user_mobile"></td>
-                                        <td data-ng-bind="u.ugroup_name"></td>
-                                        <td>
+                                    <tr data-ng-repeat="category in categories track by $index">
+                                        <td data-ng-bind="category.category_slug"></td>
+                                        <td class="text-center" data-ng-bind="category.category_name"></td>
+                                        <td class="text-center" data-ng-bind="category.category_mate_name"></td>
+                                        <td class="text-center" data-ng-bind="category.category_description"></td>
+                                        <td class="text-center">
+                                            <img src="{{ asset('images/categories/') }}/<%category.category_file%>"
+                                                alt="cate_iamge" width="30px">
+                                        </td>
+                                        <td class="text-center">
                                             <span
-                                                class="badge bg-<%statusObject.color[u.user_active]%> rounded-pill font-monospace"><%statusObject.name[u.user_active]%></span>
+                                                class="badge bg-<%categoryStatus.color[category.category_status]%> rounded-pill font-monospace"><%categoryStatus.name[category.category_status]%></span>
 
                                         </td>
                                         <td class="col-fit">
@@ -79,7 +61,7 @@
                             </table>
                         </div>
 
-                        <div data-ng-if="!users.length" class="text-center text-secondary py-5">
+                        <div data-ng-if="!categories.length" class="text-center text-secondary py-5">
                             <i class="bi bi-exclamation-circle  display-4"></i>
                             <h5>No records</h5>
                         </div>
@@ -95,11 +77,15 @@
                 <div class="modal-content">
 
                     <div class="modal-body">
-                        <form action="/categories/submit" method="post">
+                        <form action="/categories/submit" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="_method" data-ng-if="categoryUpdate !== false" value="put">
+                            <input type="hidden" name="category_id"
+                                data-ng-value="categoryUpdate !== false ? categories[categoryUpdate].id : 0">
                             @csrf
                             <div class="mb-3">
                                 <label id="cate_name">Category Name</label>
-                                <input type="text" name="category_name" id="cate_name" class="form-control">
+                                <input type="text" name="category_name" id="cate_name" class="form-control"
+                                    data-ng-value="categories[categoryUpdate].category_name">
                             </div>
                             <div class="mb-3">
                                 <label id="cate_file">Category Image</label>
@@ -107,7 +93,7 @@
                             </div>
                             <div class="mb-3">
                                 <label id="cate_description">Category Description</label>
-                                <textarea name="category_description" class="form-control" id="cate_description" cols="30" rows="7"></textarea>
+                                <textarea name="category_description" class="form-control" id="cate_description" cols="30" rows="7"><%categries[categoryUpdate].category_description%></textarea>
                             </div>
                             <hr>
                             <div class="row">
@@ -115,21 +101,23 @@
                                     <div class="mb-3">
                                         <label id="cate_mate_name">Category Meta Name</label>
                                         <input type="text" name="category_meta_name" id="cate_mate_name"
-                                            class="form-control">
+                                            class="form-control"
+                                            data-ng-value="categories[categoryUpdate].category_mate_name">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label id="cate_meta_keyword">Category Meta Keyword</label>
                                         <input type="text" name="category_meta_ketword" id="cate_meta_keyword"
-                                            class="form-control">
+                                            class="form-control"
+                                            data-ng-value="categories[categoryUpdate].category_mate_keyword">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label id="cate_meta_description">Category Meta Description</label>
                                         <textarea name="category_meta_description" class="form-control" id="cate_meta_description" cols="30"
-                                            rows="7"></textarea>
+                                            rows="7"><%categries[categoryUpdate].category_mate_description%></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -150,39 +138,58 @@
 @endsection
 @section('js')
     <script>
-        var scope, app = angular.module('myApp', [], function($interpolateProvider) {
-            $interpolateProvider.startSymbol('<%');
-            $interpolateProvider.endSymbol('%>');
-        });
+        var limit = 7,
+            scope, app = angular.module('myApp', [], function($interpolateProvider) {
+                $interpolateProvider.startSymbol('<%');
+                $interpolateProvider.endSymbol('%>');
+            });
         app.controller('myCtrl', function($scope) {
             $('.loading-spinner').hide();
-            $scope.updateUser = false;
-            $scope.userId = 0;
-            $scope.users = [];
+            $scope.categoryStatus = {
+                name: ['blocked', 'active'],
+                color: ['danger', 'success']
+            }
+            $scope.categoryUpdate = false;
+            $scope.categories = [];
             $scope.roles = [];
             $scope.page = 1;
-            $scope.q = ' ';
+            $scope.last_id = 0;
+            $scope.noMore = false;
+            $scope.loading = false;
+
             $scope.dataLoader = function(reload = false) {
                 $('.loading-spinner').show();
                 if (reload) {
-                    $scope.page = 1;
+                    $scope.categories = [];
+                    $scope.last_id = 0;
+                    $scope.noMore = false;
                 }
+
+                if ($scope.noMore) return;
+                $scope.loading = true;
                 $.post("/categories/load/", {
                     status: $('#filter-status').val(),
                     q: $scope.q,
                     page: $scope.page,
-                    limit: 24,
+                    last_id: $scope.last_id,
+                    limit: limit,
                     _token: '{{ csrf_token() }}'
                 }, function(data) {
                     $('.loading-spinner').hide();
+                    let length = data.length;
                     $scope.$apply(() => {
-                        $scope.users = data;
-                        $scope.page++;
+                        $scope.loading = false;
+                        if (length) {
+                            $scope.noMore = length < limit;
+                            $scope.categories = data;
+                            console.log(data)
+                            $scope.last_id = data[length - 1].id;
+                        }
                     });
                 }, 'json');
             }
             $scope.setUser = (indx) => {
-                $scope.updateUser = indx;
+                $scope.categoryUpdate = indx;
                 $('#categoryModel').modal('show');
             };
             $scope.editActive = (index) => {
@@ -200,7 +207,6 @@
         $(function() {
             $('#categoryModel form').on('submit', function(e) {
                 e.preventDefault();
-                controls.log(11)
                 var form = $(this),
                     formData = new FormData(this),
                     action = form.attr('action'),
@@ -217,15 +223,16 @@
                     contentType: false,
                 }).done(function(data, textStatus, jqXHR) {
                     var response = JSON.parse(data);
+                    console.log(response);
                     if (response.status) {
                         toastr.success('Data processed successfully');
-                        $('#useForm').modal('hide');
+                        $('#categoryModel').modal('hide');
                         scope.$apply(() => {
-                            if (scope.updateUser === false) {
-                                scope.users.unshift(response.data);
+                            if (scope.categoryUpdate === false) {
+                                scope.categories.unshift(response.data);
                                 scope.dataLoader(true);
                             } else {
-                                scope.users[scope.updateUser] = response.data;
+                                scope.categories[scope.categoryUpdate] = response.data;
                                 scope.dataLoader(true);
                             }
                         });
@@ -286,10 +293,10 @@
             })
         })
         $(function() {
-            $('#searchForm').on('submit', function(e) {
-                e.preventDefault();
-                scope.$apply(() => scope.q = $(this).find('input').val());
-                scope.dataLoader(true);
+            $(window).scroll(function() {
+                if ($(window).scrollTop() >= ($(document).height() - $(window).height() - 90) &&
+                    !scope
+                    .loading) scope.dataLoader();
             });
         });
         $(document).ready(function() {

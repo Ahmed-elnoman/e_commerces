@@ -23,7 +23,7 @@ class CategoryRequset extends FormRequest
     {
         return [
             'category_name'                 => ['required', 'string'],
-            'category_file'                 => ['image'],
+            'category_file'                 => ['image', 'mimes:jpeg,png,jpg,gif,webp'],
             'category_description'          => 'required',
             'category_meta_name'            => 'required',
             'category_meta_ketword'         => 'required',

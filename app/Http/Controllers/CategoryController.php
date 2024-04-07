@@ -13,9 +13,9 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function load()
+    public function load(Request $request)
     {
-        $categories = Category::getCategories();
+        $categories = Category::getCategories($request);
 
         echo json_encode($categories);
     }
@@ -27,6 +27,6 @@ class CategoryController extends Controller
 
     public function submit(CategoryRequset $request)
     {
-        return $request;
+        Category::submit($request);
     }
 }
