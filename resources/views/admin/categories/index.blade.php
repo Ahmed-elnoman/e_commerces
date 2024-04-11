@@ -45,12 +45,13 @@
                                         </td>
                                         <td class="text-center">
                                             <span
-                                                class="badge bg-<%categoryStatus.color[category.category_status]%> rounded-pill font-monospace"><%categoryStatus.name[category.category_status]%></span>
+                                                class="badge bg-<%categoryStatus.color[category.category_status]%> rounded-pill font-monospace p-2"><%categoryStatus.name[category.category_status]%></span>
 
                                         </td>
                                         <td class="col-fit">
                                             <div>
-                                                <button class="btn btn-outline-success btn-circle bi bi-person-lock"
+                                                <button
+                                                    class="btn btn-outline-success btn-circle bi bi-wrench-adjustable-circle-fill"
                                                     data-ng-click="editActive($index)"></button>
                                                 <button class="btn btn-outline-primary btn-circle bi bi-pencil-square"
                                                     data-ng-click="setUser($index)"></button>
@@ -73,7 +74,7 @@
 
 
         <div class="modal fade" id="categoryModel" tabindex="-1" aria-labelledby="categoryModelLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
                     <div class="modal-body">
@@ -133,6 +134,34 @@
             </div>
         </div>
 
+        <div class="modal fade" id="edit_active" tabindex="-1" aria-labelledby="editStatusCategoryModelLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <form action="/categories/change_status" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="_method" data-ng-if="categoryUpdate !== false" value="put">
+                            <input type="hidden" name="category_id"
+                                data-ng-value="categoryUpdate !== false ? categories[categoryUpdate].id : 0">
+                            <input type="hidden" name="category_status"
+                                data-ng-value="categoryUpdate !== false ? categories[categoryUpdate].category_status">
+                            @csrf
+                            <div class="mb-3">
+                                <p>Are you sure the status has changed?</p>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <button type="button" class="btn btn-outline-secondary me-auto "
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-outline-success">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 @endsection
@@ -146,8 +175,8 @@
         app.controller('myCtrl', function($scope) {
             $('.loading-spinner').hide();
             $scope.categoryStatus = {
-                name: ['blocked', 'active'],
-                color: ['danger', 'success']
+                name: ['active', 'blocked', ''],
+                color: ['success', 'danger', '']
             }
             $scope.categoryUpdate = false;
             $scope.categories = [];
@@ -193,7 +222,7 @@
                 $('#categoryModel').modal('show');
             };
             $scope.editActive = (index) => {
-                $scope.userId = index;
+                $scope.categoryUpdate = index;
                 $('#edit_active').modal('show');
             };
             $scope.deleletUser = (index) => {
@@ -269,14 +298,14 @@
                 }).done(function(data, textStatus, jqXHR) {
                     var response = JSON.parse(data);
                     if (response.status) {
-                        toastr.success('Data processed successfully');
+                        toastr.success('category status change successfully');
                         $('#edit_active').modal('hide');
                         scope.$apply(() => {
-                            if (scope.updateUser === false) {
-                                scope.users.unshift(response.data);
+                            if (scope.categoryUpdate === false) {
+                                scope.categories.unshift(response.data);
                                 scope.dataLoader(true);
                             } else {
-                                scope.users[scope.updateUser] = response.data;
+                                scope.categories[scope.categoryUpdate] = response.data;
                                 scope.dataLoader(true);
                             }
                         });

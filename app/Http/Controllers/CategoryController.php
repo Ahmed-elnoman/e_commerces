@@ -29,4 +29,9 @@ class CategoryController extends Controller
     {
         Category::submit($request);
     }
+
+    public function changeStatus(Request $request)
+    {
+        Category::change($request);
+    }
 }

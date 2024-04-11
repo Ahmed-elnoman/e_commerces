@@ -82,6 +82,17 @@ class Category extends Model
        ]);
     }
 
+    public static function change($request)
+    {
+     $status =  $request->category_status  == 0 ? self::where('id', $request->category_id)->update(['category_status' => 1]) :  self::where('id', $request->category_id)->update(['category_status' => 0]);
+     $record = self::where('id', $request->category_id)->first();
+     echo json_encode([
+        'status' => boolval($status),
+        'data'   =>  $record
+       ]);
+    }
+
+
 
     private function uniqidReal($lenght = 12)
     {

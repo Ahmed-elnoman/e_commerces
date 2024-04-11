@@ -36,5 +36,6 @@ Route::middleware('auth')->group(function()
         Route::get('/', 'CategoryController@index');
         Route::post('load', 'CategoryController@load');
         Route::match(['post', 'put'], 'submit', 'CategoryController@submit');
+        Route::put('change_status', 'CategoryController@changeStatus');
     });
 });
