@@ -23,4 +23,9 @@ class BrandController extends Controller
     {
         return Brand::submit($request);
     }
+
+    public function changeStatus(Request $request)
+    {
+        return Brand::changeStatus($request);
+    }
 }

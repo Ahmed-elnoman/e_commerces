@@ -5,8 +5,7 @@
             <div class="modal-body">
                 <form action="/brands/submit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" data-ng-if="brandUpdate !== false" value="put">
-                    <input type="hidden" name="brand_id"
-                        data-ng-value="brandUpdate !== false ? brands[brandUpdate].id : 0">
+                    <input type="hidden" name="brand_id" data-ng-value="brands[brandUpdate].id">
                     @csrf
                     <div class="mb-3">
                         <label id="cate_name">Brnad Name</label>
@@ -33,10 +32,8 @@
             <div class="modal-body">
                 <form action="/brands/change_status" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" data-ng-if="brandUpdate !== false" value="put">
-                    <input type="hidden" name="category_id"
-                        data-ng-value="brandUpdate !== false ? brands[brandUpdate].id : 0">
-                    <input type="hidden" name="category_status"
-                        data-ng-value="brandUpdate !== false ? brands[brandUpdate].category_status">
+                    <input type="hidden" name="brand_id" data-ng-value="brands[brandUpdate].id">
+                    <input type="hidden" name="brand_status" data-ng-value="brands[brandUpdate].brand_status">
                     @csrf
                     <div class="mb-3">
                         <p>Are you sure the status has changed?</p>

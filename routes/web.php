@@ -44,5 +44,6 @@ Route::middleware('auth')->group(function()
         Route::get('/' , 'BrandController@index');
         Route::post('load', 'BrandController@load');
         Route::match(['post', 'put'], 'submit', 'BrandController@submit');
+        Route::put('change_status', 'BrandController@changeStatus');
     });
 });
