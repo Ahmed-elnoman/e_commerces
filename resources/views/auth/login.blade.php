@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <input
+                                            <input type="password"
                                                 class="form-control form-control-lg @error('password') is-invalid @enderror"
                                                 name="password" required autocomplete="current-password">
 

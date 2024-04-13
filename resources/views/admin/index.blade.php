@@ -94,8 +94,8 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-buttons.html">
-                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
+                        <a class="sidebar-link" href="/brands/">
+                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Brands</span>
                         </a>
                     </li>
 
