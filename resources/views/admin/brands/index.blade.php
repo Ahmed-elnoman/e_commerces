@@ -24,30 +24,23 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th class="text-center">Category Name</th>
-                                        <th class="text-center">Category Meta Name</th>
-                                        <th class="text-center">Category Descripton</th>
-                                        <th class="text-center">Category Image</th>
+                                        <th class="text-center">Brans Name</th>
+                                        <th class="text-center">Brand Code</th>
                                         <th class="text-center">Category Status</th>
-                                        <th></th>
+                                        <th class="text-center"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-repeat="category in brands track by $index">
-                                        <td data-ng-bind="category.category_slug"></td>
-                                        <td class="text-center" data-ng-bind="category.category_name"></td>
-                                        <td class="text-center" data-ng-bind="category.category_mate_name"></td>
-                                        <td class="text-center" data-ng-bind="category.category_description"></td>
-                                        <td class="text-center">
-                                            <img src="{{ asset('images/brands/') }}/<%category.category_file%>"
-                                                alt="cate_iamge" width="30px">
-                                        </td>
+                                    <tr data-ng-repeat="brand in brands track by $index">
+                                        <td data-ng-bind="brand.id"></td>
+                                        <td class="text-center" data-ng-bind="brand.brand_name"></td>
+                                        <td class="text-center" data-ng-bind="brand.brand_slug"></td>
                                         <td class="text-center">
                                             <span
-                                                class="badge bg-<%categoryStatus.color[category.category_status]%> rounded-pill font-monospace p-2"><%categoryStatus.name[category.category_status]%></span>
+                                                class="badge bg-<%brandStatus.color[brand.brand_status]%> rounded-pill font-monospace p-2"><%brandStatus.name[brand.brand_status]%></span>
 
                                         </td>
-                                        <td class="col-fit">
+                                        <td class="col-fit text-center">
                                             <div>
                                                 <button
                                                     class="btn btn-outline-success btn-circle bi bi-wrench-adjustable-circle-fill"
@@ -81,7 +74,7 @@
             });
         app.controller('myCtrl', function($scope) {
             $('.loading-spinner').hide();
-            $scope.categoryStatus = {
+            $scope.brandStatus = {
                 name: ['active', 'blocked', ''],
                 color: ['success', 'danger', '']
             }

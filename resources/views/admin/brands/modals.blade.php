@@ -5,13 +5,13 @@
             <div class="modal-body">
                 <form action="/brands/submit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" data-ng-if="brandUpdate !== false" value="put">
-                    <input type="hidden" name="category_id"
+                    <input type="hidden" name="brand_id"
                         data-ng-value="brandUpdate !== false ? brands[brandUpdate].id : 0">
                     @csrf
                     <div class="mb-3">
                         <label id="cate_name">Brnad Name</label>
-                        <input type="text" name="category_name" id="cate_name" class="form-control"
-                            data-ng-value="brands[brandUpdate].category_name">
+                        <input type="text" name="brand_name" id="cate_name" class="form-control"
+                            data-ng-value="brands[brandUpdate].brand_name">
                     </div>
                     <div class="d-flex mt-3">
                         <button type="button" class="btn btn-outline-secondary me-auto "

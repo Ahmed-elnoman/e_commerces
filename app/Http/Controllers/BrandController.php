@@ -21,6 +21,6 @@ class BrandController extends Controller
 
     public function submit(Request $request)
     {
-        return $request;
+        return Brand::submit($request);
     }
 }
