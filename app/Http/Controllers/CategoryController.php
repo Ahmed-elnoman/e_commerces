@@ -34,4 +34,9 @@ class CategoryController extends Controller
     {
         Category::change($request);
     }
+
+    public function getCategories()
+    {
+        Category::getCategoriesS();
+    }
 }

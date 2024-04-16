@@ -92,6 +92,14 @@ class Category extends Model
        ]);
     }
 
+    public static function getCategoriesS()
+    {
+        $data = self::where('category_status', 0)->get();
+        echo json_encode([
+            'status' => boolval($data),
+            'data'  => $data
+        ]);
+    }
 
 
     private function uniqidReal($lenght = 12)

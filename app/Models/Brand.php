@@ -39,4 +39,13 @@ class Brand extends Model
            'data'   =>  $record
           ]);
     }
+
+    public static function getBrands()
+    {
+        $data = self::where('brand_status', 0)->get();
+        echo json_encode([
+            'status' => boolval($data),
+            'data'   =>  $data
+           ]);
+    }
 }

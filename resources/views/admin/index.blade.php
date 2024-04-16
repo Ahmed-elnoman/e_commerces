@@ -65,8 +65,8 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                        <a class="sidebar-link" href="/products/">
+                            <i class="bi bi-box-seam-fill"></i> <span class="align-middle">Products</span>
                         </a>
                     </li>
 

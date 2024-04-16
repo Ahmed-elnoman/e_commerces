@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function()
         Route::post('load', 'CategoryController@load');
         Route::match(['post', 'put'], 'submit', 'CategoryController@submit');
         Route::put('change_status', 'CategoryController@changeStatus');
+        Route::get('get_categories', 'CategoryController@getCategories');
     });
 
     Route::prefix('brands')->group(function()
@@ -45,5 +46,11 @@ Route::middleware('auth')->group(function()
         Route::post('load', 'BrandController@load');
         Route::match(['post', 'put'], 'submit', 'BrandController@submit');
         Route::put('change_status', 'BrandController@changeStatus');
+        Route::get('get_brands', 'BrandController@getBrands');
+    });
+
+    Route::prefix('products')->group(function()
+    {
+        Route::get('/', 'ProductController@index');
     });
 });
