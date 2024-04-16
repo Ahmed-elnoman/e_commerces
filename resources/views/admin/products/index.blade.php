@@ -24,20 +24,38 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th class="text-center">Brans Name</th>
-                                        <th class="text-center">Brand Code</th>
-                                        <th class="text-center">Category Status</th>
+                                        <th class="text-center">Product Name</th>
+                                        <th class="text-center">Product Key</th>
+                                        <th class="text-center">Product Description</th>
+                                        <th class="text-center">Brand Name</th>
+                                        <th class="text-center">Category Name</th>
+                                        <th class="text-center">Oringinl Price</th>
+                                        <th class="text-center">Selling Price</th>
+                                        <th class="text-center">Quintity</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Trending</th>
                                         <th class="text-center"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-repeat="brand in products track by $index">
-                                        <td data-ng-bind="brand.id"></td>
-                                        <td class="text-center" data-ng-bind="brand.brand_name"></td>
-                                        <td class="text-center" data-ng-bind="brand.brand_slug"></td>
+                                    <tr data-ng-repeat="product in products track by $index">
+                                        <td data-ng-bind="product.id"></td>
+                                        <td class="text-center" data-ng-bind="product.product_name"></td>
+                                        <td class="text-center" data-ng-bind="product.product_meta_key"></td>
+                                        <td class="text-center" data-ng-bind="product.product_description"></td>
+                                        <td class="text-center" data-ng-bind="product.brand_name"></td>
+                                        <td class="text-center" data-ng-bind="product.category_name"></td>
+                                        <td class="text-center" data-ng-bind="product.product_original_price"></td>
+                                        <td class="text-center" data-ng-bind="product.product_selling_price"></td>
+                                        <td class="text-center" data-ng-bind="product.product_quantity"></td>
                                         <td class="text-center">
                                             <span
-                                                class="badge bg-<%productstatus.color[brand.brand_status]%> rounded-pill font-monospace p-2"><%productstatus.name[brand.brand_status]%></span>
+                                                class="badge bg-<%productstatus.color[product.product_status]%> rounded-pill font-monospace p-2"><%productstatus.name[product.product_status]%></span>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge bg-<%productTrend.color[product.product_trending]%> rounded-pill font-monospace p-2"><%productTrend.name[product.product_trending]%></span>
 
                                         </td>
                                         <td class="col-fit text-center">
@@ -78,6 +96,10 @@
                 name: ['active', 'blocked', ''],
                 color: ['success', 'danger', '']
             }
+            $scope.productTrend = {
+                name: ['Yes', 'No', ''],
+                color: ['success', 'danger', '']
+            }
             $scope.productUpdate = false;
             $scope.products = [];
             $scope.categories = [];
@@ -112,6 +134,7 @@
                         if (length) {
                             $scope.noMore = length < limit;
                             $scope.products = data;
+                            console.log(data)
                             $scope.last_id = data[length - 1].id;
                         }
                     });

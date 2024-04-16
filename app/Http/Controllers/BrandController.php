@@ -31,6 +31,6 @@ class BrandController extends Controller
 
     public function getBrands()
     {
-        // return
+        return Brand::getBrands();
     }
 }

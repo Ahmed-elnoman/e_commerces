@@ -52,5 +52,7 @@ Route::middleware('auth')->group(function()
     Route::prefix('products')->group(function()
     {
         Route::get('/', 'ProductController@index');
+        Route::post('load', 'ProductController@load');
+        Route::match(['post', 'put'], 'submit', 'ProductController@submit');
     });
 });

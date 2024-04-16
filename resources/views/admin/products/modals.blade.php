@@ -3,10 +3,10 @@
         <div class="modal-content">
 
             <div class="modal-body">
-                <form action="/categories/submit" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="_method" data-ng-if="categoryUpdate !== false" value="put">
-                    <input type="hidden" name="category_id"
-                        data-ng-value="categoryUpdate !== false ? categories[categoryUpdate].id : 0">
+                <form action="/products/submit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_method" data-ng-if="productUpdate !== false" value="put">
+                    <input type="hidden" name="product_id"
+                        data-ng-value="productUpdate !== false ? products[productUpdate].id : 0">
                     @csrf
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -35,7 +35,7 @@
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <div class="mb-3">
                                 <label for="">categories</label>
-                                <select name="category" class="form-select">
+                                <select name="category" class="form-select" required>
                                     <option value="0">----</option>
                                     <option data-ng-repeat="category in categories" data-ng-value="category.id"
                                         ng-bind="category.category_name"></option>
@@ -44,13 +44,13 @@
 
                             <div class="mb-3">
                                 <label>Product name</label>
-                                <input type="text" class="form-control" name="product_name">
+                                <input type="text" class="form-control" name="product_name" required>
                             </div>
 
 
                             <div class="mb-3">
                                 <label>Brnads name</label>
-                                <select name="brand" class="form-select">
+                                <select name="brand" class="form-select" required>
                                     <option value="0">----</option>
                                     <option data-ng-repeat="brand in brands" data-ng-value="brand.id"
                                         ng-bind="brand.brand_name"></option>
@@ -59,44 +59,44 @@
 
                             <div class="mb-3">
                                 <label>Product Description</label>
-                                <textarea name="product_descrpiton" class="form-control" cols="30" rows="10"></textarea>
+                                <textarea name="product_descrpiton" class="form-control" cols="30" rows="10" required></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-sel-tags" role="tabpanel"
                             aria-labelledby="pills-sel-tags-tab" tabindex="0">
                             <div class="mb-3">
                                 <label>Product Meta Title</label>
-                                <input type="text" class="form-control" name="meta_title">
+                                <input type="text" class="form-control" name="meta_title" required>
                             </div>
                             <div class="mb-3">
                                 <label>Product Meta Key</label>
-                                <input type="text" class="form-control" name="meta_ket">
+                                <input type="text" class="form-control" name="meta_ket" required>
                             </div>
                             <div class="mb-3">
                                 <label>Product Meta Descripton</label>
-                                <textarea name="meta_descrption" class="form-control" cols="30" rows="10"></textarea>
+                                <textarea name="meta_descrption" class="form-control" cols="30" rows="10" required></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-details" role="tabpanel"
                             aria-labelledby="pills-details-tab" tabindex="0">
                             <div class="mb-3">
                                 <label>Origin Price</label>
-                                <input type="text" class="form-control" name="origin_price">
+                                <input type="text" class="form-control" name="origin_price" required>
                             </div>
                             <div class="mb-3">
                                 <label>Selling Price</label>
-                                <input type="text" class="form-control" name="selling_price">
+                                <input type="text" class="form-control" name="selling_price" required>
                             </div>
                             <div class="mb-3">
                                 <label>Product Quintity</label>
-                                <input type="text" class="form-control" name="quintity">
+                                <input type="text" class="form-control" name="quintity" required>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-images" role="tabpanel"
                             aria-labelledby="pills-images-tab" tabindex="0">
                             <div class="mb-3">
                                 <label>Product Image</label>
-                                <input type="file" name="image" class="form-control" multiple>
+                                <input type="file" name="image" class="form-control" multiple required>
                             </div>
                         </div>
                     </div>
