@@ -44,7 +44,8 @@
 
                             <div class="mb-3">
                                 <label>Product name</label>
-                                <input type="text" class="form-control" name="product_name" required>
+                                <input type="text" class="form-control" name="product_name"
+                                    data-ng-value="products[productUpdate].product_name" required />
                             </div>
 
 
@@ -59,37 +60,42 @@
 
                             <div class="mb-3">
                                 <label>Product Description</label>
-                                <textarea name="product_descrpiton" class="form-control" cols="30" rows="10" required></textarea>
+                                <textarea name="product_descrpiton" class="form-control" cols="30" rows="10" required><%products[productUpdate].product_description%></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-sel-tags" role="tabpanel"
                             aria-labelledby="pills-sel-tags-tab" tabindex="0">
                             <div class="mb-3">
                                 <label>Product Meta Title</label>
-                                <input type="text" class="form-control" name="meta_title" required>
+                                <input type="text" class="form-control" name="meta_title"
+                                    data-ng-value="products[productUpdate].product_meta_name" required />
                             </div>
                             <div class="mb-3">
                                 <label>Product Meta Key</label>
-                                <input type="text" class="form-control" name="meta_ket" required>
+                                <input type="text" class="form-control" name="meta_ket"
+                                    data-ng-value="products[productUpdate].product_meta_key" required />
                             </div>
                             <div class="mb-3">
                                 <label>Product Meta Descripton</label>
-                                <textarea name="meta_descrption" class="form-control" cols="30" rows="10" required></textarea>
+                                <textarea name="meta_descrption" class="form-control" cols="30" rows="10" required><%products[productUpdate].product_meta_description%></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-details" role="tabpanel"
                             aria-labelledby="pills-details-tab" tabindex="0">
                             <div class="mb-3">
                                 <label>Origin Price</label>
-                                <input type="text" class="form-control" name="origin_price" required>
+                                <input type="text" class="form-control" name="origin_price"
+                                    data-ng-value="products[productUpdate].product_original_price" required />
                             </div>
                             <div class="mb-3">
                                 <label>Selling Price</label>
-                                <input type="text" class="form-control" name="selling_price" required>
+                                <input type="text" class="form-control" name="selling_price"
+                                    data-ng-value="products[productUpdate].product_selling_price" required />
                             </div>
                             <div class="mb-3">
                                 <label>Product Quintity</label>
-                                <input type="text" class="form-control" name="quintity" required>
+                                <input type="text" class="form-control" name="quintity"
+                                    data-ng-value="products[productUpdate].product_quantity" required />
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-images" role="tabpanel"
